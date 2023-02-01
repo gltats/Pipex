@@ -54,7 +54,8 @@ but the most common error codes are defined by the POSIX standard and include co
 ENOENT (file or directory not found), and EINVAL (invalid argument). </br>
  - waitpid -> is used by a parent process to wait for the termination of one of its child processes. This function blocks the execution of the parent process until the specified child process terminates or a signal is received.</br>
 The waitpid function takes three arguments: the process ID of the child process to wait for, a pointer to a status variable that will be filled with the exit status of the child process, and flags that specify the behavior of the function.</br>
-```waitpid(pid, &status, 0)```
+```waitpid(pid, &status, 0)```</br>
+- PID -> process identifier, is a unique numerical value assigned by an operating system to each process that is created on a computer
 
 ##
 ![Generic badge](https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white)
