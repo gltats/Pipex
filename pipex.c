@@ -6,7 +6,7 @@
 /*   By: tgomes-l <tgomes-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:03:42 by tgomes-l          #+#    #+#             */
-/*   Updated: 2023/02/03 18:35:18 by tgomes-l         ###   ########.fr       */
+/*   Updated: 2023/02/03 19:40:17 by tgomes-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 //waitpid -> is used by a parent process to wait for the termination 
 //of one of its child processes.
 /* Child process that run inside a fork, take the filein, put the output inside
- a pipe and then close with the exec function */
+ a pipe, closes the read side and executes  */
 static void child_process(char **argv, char **envp, int *fd)
 {
 	int infile;
@@ -30,7 +30,7 @@ static void child_process(char **argv, char **envp, int *fd)
 }
 
 /* Parent process that take the data from the pipe, change the output for the
- fileout and also close with the exec function */
+ fileout, closes the write side and executes */
 static void parent_process(char **argv, char **envp, int *fd)
 {
 	int outfile;
