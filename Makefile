@@ -10,28 +10,34 @@ NAME = pipex
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-SRC = pipex.c
+SRC = pipex.c execute.c main.c utils.c
 REMOVE = rm -f
+LIBFT = ./libft/
 
 all: header $(NAME)
 
 $(NAME):
+	@echo "$(RESET)$(ORANGE)Compiling LIBFT...$(RESET)"
+	make -C $(LIBFT)
 	@echo "$(RESET)$(ORANGE)Compiling...$(RESET)"
-	$(CC) $(CFLAGS) $(SRC) -o $(NAME)
+	$(CC) $(CFLAGS) $(SRC) -L $(LIBFT) -lft -o $(NAME) 
 	@echo "$(RESET)$(GREEN)DONE ✓✓$(RESET)"
 	
 header:	
-		@echo "$(BLUE)                           $(RESET)"
-		@echo "$(BLUE)   ********  **       **********     **     **********  ********$(RESET)"
-		@echo "$(BLUE)  **//////**/**      /////**///     ****   /////**///  **////// $(RESET)"
-		@echo "$(BLUE) **      // /**          /**       **//**      /**    /**  $(RESET)"
-		@echo "$(BLUE)/**         /**          /**      **  //**     /**    /*********$(RESET)"
-		@echo "$(BLUE)/**    *****/**          /**     **********    /**    ////////**$(RESET)"
-		@echo "$(BLUE)//**  ////**/**          /**    /**//////**    /**           /**$(RESET)"
-		@echo "$(BLUE) //******** /********    /**    /**     /**    /**     ******** $(RESET)"
-		@echo "$(BLUE)  ////////  ////////     //     //      //     //     ////////$(RESET)"
-		@echo "$(RED)                                                                 IS COOL! $(RESET)"
-		@echo "$(BLUE)                           $(RESET)"
+		@echo "                                                    "
+		@echo "$(BLUE)		 ___________________________________________________ $(BLUE)"
+		@echo "$(BLUE)		|                                                   | $(BLUE)"
+		@echo "$(BLUE)		|    *****  ***          *            *             | $(RESET)"
+		@echo "$(BLUE)		|   *** **   **          *      **    *     ****    | $(RESET)"
+		@echo "$(BLUE)		|   **  **   **         *****  **** *****   ****    | $(RESET)"
+		@echo "$(BLUE)		|   **       **         *****  *  * *****  **  *    | $(RESET)"
+		@echo "$(BLUE)		|   ** ***   **          *     ****   *    ****     | $(RESET)"
+		@echo "$(BLUE)		|   ** ***   **          *    *****   *     ****    | $(RESET)"
+		@echo "$(BLUE)		|   *** **   **    **    ** * **  *   **** **  **   | $(RESET)"
+		@echo "$(BLUE)		|    ***** *****   **    **** ******  **** *****    | $(RESET)"
+		@echo "$(BLUE)		|     **** *****   **    ****  *****  ***  *****    | $(RESET)"
+		@echo "$(BLUE)		|___________________________________________________|$(RESET)"
+		@echo "$(BLUE)		|__________________________________________$(RED)PROJECT!$(RESET)$(BLUE)_|$(RESET)"
 
 clean:
 	@echo "$(RESET)$(ORANGE)Cleaning object files...$(RESET)"
@@ -45,4 +51,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all bonus clean fclean re
+.PHONY: all clean fclean re
