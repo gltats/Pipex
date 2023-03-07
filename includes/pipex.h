@@ -6,7 +6,7 @@
 /*   By: tgomes-l <tgomes-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:06:28 by tgomes-l          #+#    #+#             */
-/*   Updated: 2023/03/07 16:31:46 by tgomes-l         ###   ########.fr       */
+/*   Updated: 2023/03/07 18:05:23 by tgomes-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@
 # define ERROR_COMMAND_NOT_FOUND "\033[31mError:Command not found\n\e[0m"
 # define ERROR_EXECVE "\033[31mExecve error:\n\e[0m"
 # define ERROR_NO_TOKENS "\033[31mError: No path\n\e[0m"
-# define ERROR_INFILE "\033[31mInfile\n\e[0m"
-# define ERROR_OUTFILE "\033[31mOutfile\n\e[0m"
-# define ERROR_INPUT "\033[31mInvalid number of arguments.\n\e[0m"
-# define ERROR_PIPE "\033[31mPipe\n\e[0m"
+# define ERROR_INFILE "\033[31mError:Infile\n\e[0m"
+# define ERROR_OUTFILE "\033[31mError:Outfile\n\e[0m"
+# define ERROR_INPUT "\033[31mError:Invalid number of arguments.\n\e[0m"
+# define ERROR_PIPE "\033[31mError:Pipe\n\e[0m"
+# define ERROR_FORK "\033[31mError:Fork\n\e[0m"
 
 typedef struct s_pipex
 {

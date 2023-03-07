@@ -6,7 +6,7 @@
 /*   By: tgomes-l <tgomes-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:03:42 by tgomes-l          #+#    #+#             */
-/*   Updated: 2023/03/07 16:52:50 by tgomes-l         ###   ########.fr       */
+/*   Updated: 2023/03/07 18:04:43 by tgomes-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 static void	child_process(t_pipex pipex, char **argv, char *envp)
 {
 	dup2(pipex.pipe[1], 1);
-	close(pipex.pipe[0]);
 	dup2(pipex.infile, 0);
+	close(pipex.pipe[0]);
 	pipex.cmd_args = ft_split(argv[2], ' ');
 	pipex.cmd = get_cmd(pipex.cmd_paths, pipex.cmd_args[0]);
 	if (!pipex.cmd)
@@ -38,8 +38,8 @@ static void	child_process(t_pipex pipex, char **argv, char *envp)
 static void	parent_process(t_pipex pipex, char **argv, char *envp)
 {
 	dup2(pipex.pipe[0], 0);
-	close(pipex.pipe[1]);
 	dup2(pipex.outfile, 1);
+	close(pipex.pipe[1]);
 	pipex.cmd_args = ft_split(argv[3], ' ');
 	pipex.cmd = get_cmd(pipex.cmd_paths, pipex.cmd_args[0]);
 	if (!pipex.cmd)
@@ -51,33 +51,37 @@ static void	parent_process(t_pipex pipex, char **argv, char *envp)
 	execve(pipex.cmd, pipex.cmd_args, &envp);
 }
 
-/* Pipex function runs the child and parent process or displays an error
- message if needed */
+/* Pipex function  opens input and output files, 
+sets up a pipe, forks two child processes, 
+and executes the child and parent processes according */
 int	pipex(int argc, char **argv, char *envp)
 {
 	t_pipex	pipex;
 
 	if (argc != 5)
 		return (msg(ERROR_INPUT));
-	pipex.infile = open(argv[1], O_RDONLY);
-	if (pipex.infile < 0)
-		msg_error(ERROR_INFILE);
-	pipex.outfile = open(argv[argc - 1], O_TRUNC | O_CREAT | O_RDWR, 0000644);
-	if (pipex.outfile < 0)
-		msg_error(ERROR_OUTFILE);
-	if (pipe(pipex.pipe) < 0)
-		msg_error(ERROR_PIPE);
-	pipex.paths = find_path(envp);
-	pipex.cmd_paths = ft_split(pipex.paths, ':');
-	pipex.pid1 = fork();
-	if (pipex.pid1 == 0)
-		child_process(pipex, argv, envp);
-	pipex.pid2 = fork();
-	if (pipex.pid2 == 0)
-		parent_process(pipex, argv, envp);
-	close_pipes(&pipex);
-	waitpid(pipex.pid1, NULL, 0);
-	waitpid(pipex.pid2, NULL, 0);
-	parent_free(&pipex);
+	else if(argc == 5)
+	{
+		pipex.infile = open(argv[1], O_RDONLY, 0777);
+		pipex.outfile = open(argv[4], O_CREAT | O_RDWR | O_TRUNC, 0644);
+		if (pipex.infile == -1 || pipex.outfile == -1)
+			msg_error(ERROR_OUTFILE);
+		if (pipe(pipex.pipe) == -1)
+			msg_error(ERROR_PIPE);
+		pipex.paths = find_path(envp);
+		pipex.cmd_paths = ft_split(pipex.paths, ':');
+		pipex.pid1 = fork();
+		if (pipex.pid1 == -1)
+			msg_error(ERROR_FORK);
+		if (pipex.pid1 == 0)
+			child_process(pipex, argv, envp);
+		pipex.pid2 = fork();
+		if (pipex.pid2 == 0)
+			parent_process(pipex, argv, envp);
+		close_pipes(&pipex);
+		waitpid(pipex.pid1, NULL, 0);
+		waitpid(pipex.pid2, NULL, 0);
+		parent_free(&pipex);
+		}
 	return (0);
 }
