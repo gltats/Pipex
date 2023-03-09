@@ -6,7 +6,7 @@
 /*   By: tgomes-l <tgomes-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 16:44:57 by tgomes-l          #+#    #+#             */
-/*   Updated: 2023/03/09 17:38:10 by tgomes-l         ###   ########.fr       */
+/*   Updated: 2023/03/09 18:32:23 by tgomes-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void ft_infile(char **argv, t_pipex *pipex)
 	if (pipex->infile < 0)
 	{
 		if (access(argv[1], F_OK | R_OK))
-			msg(ERROR_INFILE, 0);
+			msg(strerror(errno), argv[1], 0);
 	}
 }
 
@@ -28,7 +28,7 @@ int ft_outfile(char **argv, t_pipex *pipex)
 		pipex->outfile = open(argv[4], O_WRONLY | O_TRUNC);
 	else if (!access(argv[4], F_OK))
 	{
-		msg(ERROR_OUTFILE, 0);
+		msg(strerror(errno), argv[4], 0);
 		return (1);
 	}
 	else

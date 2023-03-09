@@ -6,7 +6,7 @@
 /*   By: tgomes-l <tgomes-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:03:42 by tgomes-l          #+#    #+#             */
-/*   Updated: 2023/03/09 17:32:30 by tgomes-l         ###   ########.fr       */
+/*   Updated: 2023/03/09 18:57:26 by tgomes-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	child_process(t_pipex pipex, char **argv, char **envp)
 		if (!pipex.cmd)
 		{
 			if (!ft_strchr(pipex.cmd_args[0], '/'))
-				msg(ERROR_COMMAND_NOT_FOUND, 0);
+				msg("Error: Command not found", pipex.cmd_args[0], 0);
 			free_cmd(&pipex);
 			parent_free(&pipex);
 			exit (CMD_NOT_FOUND);
@@ -58,7 +58,7 @@ static void	parent_process(t_pipex pipex, char **argv, char **envp)
 	if (!pipex.cmd)
 	{
 		if (!ft_strchr(pipex.cmd_args[0], '/'))
-			msg(ERROR_COMMAND_NOT_FOUND, 0);
+			msg("Error: Command not found", pipex.cmd_args[0], 0);
 		free_cmd(&pipex);
 		parent_free(&pipex);
 		exit (CMD_NOT_FOUND);
@@ -93,7 +93,7 @@ int	pipex(int argc, char **argv, char **envp)
 	
 	status = 0;
 	if (argc != 5)
-		return (msg(ERROR_INPUT, 1));
+		msg("Invalid number of arguments.", "Error:", 1);
 	else if(argc == 5)
 	{
 		status = ft_init(&pipex, argv, envp);

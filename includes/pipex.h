@@ -6,7 +6,7 @@
 /*   By: tgomes-l <tgomes-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:06:28 by tgomes-l          #+#    #+#             */
-/*   Updated: 2023/03/09 17:33:27 by tgomes-l         ###   ########.fr       */
+/*   Updated: 2023/03/09 19:07:02 by tgomes-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,9 @@
 # include <errno.h>
 # include "../libft/libft.h"
 
-//\033[31m -> sets the color to red
-//\e[0m -> restes the color
-# define ERROR "\033[91mERROR\e[0m"
-# define ERROR_COMMAND_NOT_FOUND "\033[91m Error: \e[0m \033[31m Command not found\n \e[0m"
+
 # define ERROR_EXECVE "\033[91m Error:\e[0m \033[31mExeceve\n\e[0m"
-# define ERROR_NO_TOKENS "\033[91mError:\e[0m \033[31mNo path\n\e[0m"
-# define ERROR_INFILE "\033[91mError:\e[0m \033[31mInfile\n\e[0m"
-# define ERROR_OUTFILE "\033[91mError:\e[0m \033[31mOutfile\n\e[0m"
-# define ERROR_INPUT "\033[91mError:\e[0m \033[31m Invalid number of arguments.\n\e[0m"
 # define ERROR_PIPE "\033[91mError:\e[0m \033[31mPipe\n\e[0m"
-# define ERROR_FORK "\033[91mError:\e[0m \033[31mFork\n\e[0m"
-# define FILE_NOT_FOUND "\033[91m Error: \e[0m \033[31m Directory or file not found\n \e[0m"
 
 # define CMD_NOT_FOUND 127
 # define ERR_FILE 1
@@ -55,7 +46,8 @@ typedef struct s_pipex
 void	close_pipes(t_pipex *pipex);
 void	parent_free(t_pipex *pipex);
 void	child_free(t_pipex *pipex);
-int		msg(char *err, int err_exit);
+//int		msg(char *err, int err_exit);
+void	msg(char *f, char *s, int err_exit);
 void	msg_error(char *err);
 //parsing.c
 void	parse_args(t_pipex *pipex, char *args);
