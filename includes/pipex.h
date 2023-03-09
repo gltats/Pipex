@@ -6,7 +6,7 @@
 /*   By: tgomes-l <tgomes-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:06:28 by tgomes-l          #+#    #+#             */
-/*   Updated: 2023/03/09 19:07:02 by tgomes-l         ###   ########.fr       */
+/*   Updated: 2023/03/09 19:23:28 by tgomes-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 # define ERROR_EXECVE "\033[91m Error:\e[0m \033[31mExeceve\n\e[0m"
 # define ERROR_PIPE "\033[91mError:\e[0m \033[31mPipe\n\e[0m"
-
+# define ERROR_FILE "Error: Directory or file not found"
 # define CMD_NOT_FOUND 127
 # define ERR_FILE 1
 

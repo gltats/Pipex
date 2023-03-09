@@ -6,7 +6,7 @@
 /*   By: tgomes-l <tgomes-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:03:42 by tgomes-l          #+#    #+#             */
-/*   Updated: 2023/03/09 18:57:26 by tgomes-l         ###   ########.fr       */
+/*   Updated: 2023/03/09 19:25:03 by tgomes-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,27 @@
 static void	child_process(t_pipex pipex, char **argv, char **envp)
 {
 	if ((dup2(pipex.pipe[1], STDOUT_FILENO)) < 0)
-			perror("Error dup2: ");
-		dup2(pipex.infile, STDIN_FILENO);
-		close_pipes(&pipex);
-		close(pipex.infile);
-		close(pipex.outfile);
-		parse_args(&pipex, argv[2]);
-		check_for_path(&pipex, 0);
-		if (!pipex.cmd)
-		{
-			if (!ft_strchr(pipex.cmd_args[0], '/'))
-				msg("Error: Command not found", pipex.cmd_args[0], 0);
-			free_cmd(&pipex);
-			parent_free(&pipex);
-			exit (CMD_NOT_FOUND);
-		}
-		if ((execve(pipex.cmd, pipex.cmd_args, envp)) < 0)
-		{
-			free_cmd(&pipex);
-			parent_free(&pipex);
-			msg_error(ERROR_EXECVE);
-		}
+		perror("Error dup2: ");
+	dup2(pipex.infile, STDIN_FILENO);
+	close_pipes(&pipex);
+	close(pipex.infile);
+	close(pipex.outfile);
+	parse_args(&pipex, argv[2]);
+	check_for_path(&pipex, 0);
+	if (!pipex.cmd)
+	{
+		if (!ft_strchr(pipex.cmd_args[0], '/'))
+			msg("Error: Command not found", pipex.cmd_args[0], 0);
+		free_cmd(&pipex);
+		parent_free(&pipex);
+		exit (CMD_NOT_FOUND);
+	}
+	if ((execve(pipex.cmd, pipex.cmd_args, envp)) < 0)
+	{
+		free_cmd(&pipex);
+		parent_free(&pipex);
+		msg_error(ERROR_EXECVE);
+	}
 }
 
 /* Parent process that take the pipex from the pipe, change the output for the
@@ -89,7 +89,7 @@ and executes the child and parent processes according */
 int	pipex(int argc, char **argv, char **envp)
 {
 	t_pipex	pipex;
-	int status;
+	int		status;
 	
 	status = 0;
 	if (argc != 5)

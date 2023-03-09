@@ -6,7 +6,7 @@
 /*   By: tgomes-l <tgomes-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 18:43:09 by tgomes-l          #+#    #+#             */
-/*   Updated: 2023/03/09 18:57:55 by tgomes-l         ###   ########.fr       */
+/*   Updated: 2023/03/09 19:23:38 by tgomes-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ void	check_for_path(t_pipex *pipex, int i)
 		else
 		{
 			if (i != 0)
-				msg(pipex->cmd_args[0], "Error: Directory or file not found", 127);
+				msg(pipex->cmd_args[0], ERROR_FILE, 127);
 			else
-				msg(pipex->cmd_args[0], "Error: Directory or file not found", 3);
+				msg(pipex->cmd_args[0], ERROR_FILE, 3);
 		}
 	}
 	if (ft_strchr(pipex->cmd_args[0], '/') == 0)
