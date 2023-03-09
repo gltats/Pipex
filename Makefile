@@ -1,5 +1,6 @@
 #Colors--------------------
 BLUE = \033[94m
+CYAN = \033[0;96m
 ORANGE = \033[38;5;215m
 RED = \033[31m
 GREEN = \033[38;5;82m
@@ -16,7 +17,7 @@ LIB = -L $(LIBFT) -lft
 REMOVE = rm -f
 
 # Source files
-SRC = src/execute.c src/pipex.c src/utils.c src/main.c
+SRC = src/execute.c src/pipex.c src/utils.c src/files.c src/parsing.c src/main.c
 
 # Object files
 OBJ = $(SRC:src/%.c=obj/%.o)
@@ -26,7 +27,7 @@ NAME = pipex
 
 all: header $(NAME)
 
-$(NAME): $(OBJ) $(GNL_OBJ)
+$(NAME): $(OBJ)
 	@echo "$(RESET)$(ORANGE)Compiling LIBFT...$(RESET)"
 	make -C $(LIBFT)
 	@echo "$(RESET)$(ORANGE)Compiling $(NAME)...$(RESET)"
@@ -81,5 +82,14 @@ fclean: clean fcleanlib
 	@echo "$(RESET)$(GREEN)ALL CLEANED ✓✓$(RESET)"
 
 re: fclean all
+
+valgrind:
+	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --trace-children=yes -s -q ./pipex ...
+
+norm:
+	@echo "$(CYAN)\nChecking norm for libft...$(RESET)\n"
+	@norminette -R CheckForbiddenSourceHeader $(LIBFT) includes/
+	@echo "$(CYAN)\nChecking norm for $(NAME)...$(RESET)\n"
+	@norminette -R CheckForbiddenSourceHeader $(SRC) includes/
 
 .PHONY: all cleanobj clean fclean re
