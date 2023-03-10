@@ -18,6 +18,7 @@ EMOJI_CELEBRATE := \xF0\x9F\x8E\x89
 EMOJI_CLOCK := \xE2\x8F\xB0
 EMOJI_ROBOT := \xF0\x9F\xA4\x96
 SPARKS := \xE2\x9C\xA8
+CLEANING_TOOL := \xF0\x9F\xA7\xBD
 #--------------------------------
 
 # Directories
@@ -85,14 +86,14 @@ fcleanlib:
 	make fclean -C $(LIBFT)
 
 clean: cleanobj cleanlib
-	@echo "$(RESET)$(ORANGE)Cleaning object files...$(RESET)"
+	@echo "$(RESET)$(CLEANING_TOOL)$(ORANGE)Cleaning object files...$(RESET)"
 	${REMOVE} $(OBJ)
-	@echo "$(RESET)$(GREEN)CLEANED ✓✓$(RESET)"
+	@echo "$(RESET)$(SPARKS)$(GREEN)CLEANED ✓✓$(RESET)"
 
 fclean: clean fcleanlib
-	@echo "$(RESET)$(ORANGE)Cleaning object files and program...$(RESET)"
+	@echo "$(RESET)$(CLEANING_TOOL)$(ORANGE)Cleaning object files and program...$(RESET)"
 	${REMOVE} $(NAME)
-	@echo "$(RESET)$(GREEN)ALL CLEANED ✓✓$(RESET)"
+	@echo "$(RESET)$(SPARKS)$(GREEN)ALL CLEANED ✓✓$(RESET)"
 
 re: fclean all
 
