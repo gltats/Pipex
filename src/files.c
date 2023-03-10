@@ -6,20 +6,28 @@
 /*   By: tgomes-l <tgomes-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 16:44:57 by tgomes-l          #+#    #+#             */
-/*   Updated: 2023/03/10 16:17:35 by tgomes-l         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:39:45 by tgomes-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
 /*takes the first argument from the command line  
-and attempts to open it using open with the O_RDONLY flag.*/
+and attempts to open it using open with the O_RDONLY flag.
+3. If the file does not exist, it is created using open with 
+	the O_CREAT,*/
 void	ft_infile(char **argv, t_pipex *pipex)
 {
 	pipex->infile = open(argv[1], O_RDONLY, 0777);
 	if (pipex->infile < 0)
 	{
-		if (access(argv[1], F_OK | R_OK))
+		if (access(argv[1], F_OK) != 0)
+		{
+			pipex->infile = open(argv[1], O_CREAT | O_RDONLY, 0777);
+			if (pipex->infile < 0)
+				msg(strerror(errno), argv[1], 0);
+		}
+		else
 			msg(strerror(errno), argv[1], 0);
 	}
 }
