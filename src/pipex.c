@@ -6,17 +6,17 @@
 /*   By: tgomes-l <tgomes-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:03:42 by tgomes-l          #+#    #+#             */
-/*   Updated: 2023/03/09 19:25:03 by tgomes-l         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:16:02 by tgomes-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/pipex.h"
 //PID -> process identifier, is a unique numerical value assigned by an 
 //operating system to each process that is created on a computer
 //waitpid -> is used by a parent process to wait for the termination 
 //of one of its child processes.
-/* Child process that run inside a fork, take the filein, put the output inside
- a pipe, closes the read side and executes  */
+#include "../includes/pipex.h"
+/* runs inside a fork and takes the input file, puts the output inside a 
+pipe, closes the read side, and executes the command using execve(). */
 static void	child_process(t_pipex pipex, char **argv, char **envp)
 {
 	if ((dup2(pipex.pipe[1], STDOUT_FILENO)) < 0)
@@ -30,7 +30,7 @@ static void	child_process(t_pipex pipex, char **argv, char **envp)
 	if (!pipex.cmd)
 	{
 		if (!ft_strchr(pipex.cmd_args[0], '/'))
-			msg("Error: Command not found", pipex.cmd_args[0], 0);
+			msg("command not found:", pipex.cmd_args[0], 0);
 		free_cmd(&pipex);
 		parent_free(&pipex);
 		exit (CMD_NOT_FOUND);
@@ -43,8 +43,10 @@ static void	child_process(t_pipex pipex, char **argv, char **envp)
 	}
 }
 
-/* Parent process that take the pipex from the pipe, change the output for the
- fileout, closes the write side and executes */
+/* Runs inside another fork and 
+takes the output from the pipe, 
+puts it into the output file, closes the write side, 
+and executes the command using execve() */
 static void	parent_process(t_pipex pipex, char **argv, char **envp)
 {
 	if ((dup2(pipex.pipe[0], STDIN_FILENO)) < 0)
@@ -58,7 +60,7 @@ static void	parent_process(t_pipex pipex, char **argv, char **envp)
 	if (!pipex.cmd)
 	{
 		if (!ft_strchr(pipex.cmd_args[0], '/'))
-			msg("Error: Command not found", pipex.cmd_args[0], 0);
+			msg("command not found:", pipex.cmd_args[0], 0);
 		free_cmd(&pipex);
 		parent_free(&pipex);
 		exit (CMD_NOT_FOUND);
@@ -71,6 +73,8 @@ static void	parent_process(t_pipex pipex, char **argv, char **envp)
 	}
 }
 
+/*Initializes the t_pipex struct, sets the input file, output file, 
+and the paths to search for the command.*/
 static int	ft_init(t_pipex *pipex, char **argv, char **envp)
 {
 	int	status;
@@ -83,36 +87,34 @@ static int	ft_init(t_pipex *pipex, char **argv, char **envp)
 	return (status);
 }
 
-/* Pipex function  opens input and output files, 
-sets up a pipe, forks two child processes, 
-and executes the child and parent processes according */
+/*coordinates the execution of the child_process 
+and parent_process functions by creating 
+two child processes and waiting for them to complete. 
+Initializes the t_pipex struct*/
 int	pipex(int argc, char **argv, char **envp)
 {
 	t_pipex	pipex;
 	int		status;
-	
+
 	status = 0;
 	if (argc != 5)
 		msg("Invalid number of arguments.", "Error:", 1);
-	else if(argc == 5)
-	{
-		status = ft_init(&pipex, argv, envp);
-		if (pipe(pipex.pipe) == -1)
-			msg_error(ERROR_PIPE);
-		pipex.pid[0] = fork();
-		if (pipex.pid[0] == 0)
-			child_process(pipex, argv, envp);
-		pipex.pid[1] = fork();
-		if (pipex.pid[1] == 0)
-			parent_process(pipex, argv, envp);
-		close_pipes(&pipex);
-		close(pipex.infile);
-		close(pipex.outfile);
-		waitpid(pipex.pid[0], NULL, 0);
-		waitpid(pipex.pid[1], &pipex.exit_status, 0);
-		parent_free(&pipex);
-		if (status == 1)
-			return (1);
-		}
+	status = ft_init(&pipex, argv, envp);
+	if (pipe(pipex.pipe) < 0)
+		msg_error(ERROR_PIPE);
+	pipex.pid[0] = fork();
+	if (pipex.pid[0] == 0)
+		child_process(pipex, argv, envp);
+	pipex.pid[1] = fork();
+	if (pipex.pid[1] == 0)
+		parent_process(pipex, argv, envp);
+	close_pipes(&pipex);
+	close(pipex.infile);
+	close(pipex.outfile);
+	waitpid(pipex.pid[0], NULL, 0);
+	waitpid(pipex.pid[1], &pipex.exit_status, 0);
+	parent_free(&pipex);
+	if (status == 1)
+		return (1);
 	return (WEXITSTATUS(pipex.exit_status));
 }

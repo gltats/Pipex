@@ -6,7 +6,7 @@
 /*   By: tgomes-l <tgomes-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:06:28 by tgomes-l          #+#    #+#             */
-/*   Updated: 2023/03/09 19:23:28 by tgomes-l         ###   ########.fr       */
+/*   Updated: 2023/03/10 15:30:14 by tgomes-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@
 # include <errno.h>
 # include "../libft/libft.h"
 
-
 # define ERROR_EXECVE "\033[91m Error:\e[0m \033[31mExeceve\n\e[0m"
 # define ERROR_PIPE "\033[91mError:\e[0m \033[31mPipe\n\e[0m"
 # define ERROR_FILE "Error: Directory or file not found"
+# define ERROR "\033[91mError\n\e[0m"
 # define CMD_NOT_FOUND 127
 # define ERR_FILE 1
 
@@ -57,10 +57,10 @@ char	*get_cmd(char **path, char *cmd);
 void	free_cmd(t_pipex *pipex);
 void	check_for_path(t_pipex *pipex, int i);
 //files.c
-void ft_infile(char **argv, t_pipex *pipex);
-int ft_outfile(char **argv, t_pipex *pipex);
+void	ft_infile(char **argv, t_pipex *pipex);
+int		ft_outfile(char **argv, t_pipex *pipex);
 //pipex.c
-int	pipex(int argc, char **argv, char **envp);
+int		pipex(int argc, char **argv, char **envp);
 //main.c
-int	main(int argc, char **argv, char **envp);
+int		main(int argc, char **argv, char **envp);
 #endif

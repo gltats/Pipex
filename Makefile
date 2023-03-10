@@ -1,11 +1,24 @@
-#Colors--------------------
-BLUE = \033[94m
+#Colors------------------------------------------------------------
+#\033[38;2;255;0;0m 38;2 indicates 24-bit color mode.
+#                   255;0;0 amount of red, green, and blue
 CYAN = \033[0;96m
-ORANGE = \033[38;5;215m
-RED = \033[31m
-GREEN = \033[38;5;82m
+ORANGE = \033[38;2;255;146;3m
+RED = \033[38;2;255;0;0m
+GREEN = \033[38;2;0;255;0m
+PINK = \033[38;2;255;55;255m
+L_VIOLET = \033[38;2;171;0;205m
+VIOLET = \033[38;2;154;0;255m
 RESET = \033[0m
-#--------------------------
+#------------------------------------------------------------------
+
+#Emojis-------------------------
+EMOJI_HAPPY := \xF0\x9F\x98\x83
+EMOJI_SAD := \xF0\x9F\x98\xA2
+EMOJI_CELEBRATE := \xF0\x9F\x8E\x89
+EMOJI_CLOCK := \xE2\x8F\xB0
+EMOJI_ROBOT := \xF0\x9F\xA4\x96
+SPARKS := \xE2\x9C\xA8
+#--------------------------------
 
 # Directories
 LIBFT = ./libft
@@ -28,11 +41,11 @@ NAME = pipex
 all: header $(NAME)
 
 $(NAME): $(OBJ)
-	@echo "$(RESET)$(ORANGE)Compiling LIBFT...$(RESET)"
+	@echo "$(EMOJI_ROBOT)$(ORANGE)Compiling LIBFT...$(RESET)"
 	make -C $(LIBFT)
-	@echo "$(RESET)$(ORANGE)Compiling $(NAME)...$(RESET)"
+	@echo "$(EMOJI_CLOCK)$(ORANGE)Compiling $(NAME)...$(RESET)"
 	$(CC) $(CFLAGS) $(INC) -o $@ $^ $(LIB)
-	@echo "$(RESET)$(GREEN)DONE ✓✓$(RESET)"
+	@echo "$(EMOJI_HAPPY)$(GREEN)YEAH DONE ✓✓$(RESET)"
 
 # This rule specifies that for each object file in $(OBJ), 
 # make should look for a source file in the src directory with 
@@ -48,19 +61,19 @@ obj:
 	
 header:	
 		@echo "                                                    "
-		@echo "$(BLUE)		 ___________________________________________________ $(BLUE)"
-		@echo "$(BLUE)		|                                                   | $(BLUE)"
-		@echo "$(BLUE)		|    *****  ***          *            *             | $(RESET)"
-		@echo "$(BLUE)		|   *** **   **          *      **    *     ****    | $(RESET)"
-		@echo "$(BLUE)		|   **  **   **         *****  **** *****   ****    | $(RESET)"
-		@echo "$(BLUE)		|   **       **         *****  *  * *****  **  *    | $(RESET)"
-		@echo "$(BLUE)		|   ** ***   **          *     ****   *    ****     | $(RESET)"
-		@echo "$(BLUE)		|   ** ***   **          *    *****   *     ****    | $(RESET)"
-		@echo "$(BLUE)		|   *** **   **    **    ** * **  *   **** **  **   | $(RESET)"
-		@echo "$(BLUE)		|    ***** *****   **    **** ******  **** *****    | $(RESET)"
-		@echo "$(BLUE)		|     **** *****   **    ****  *****  ***  *****    | $(RESET)"
-		@echo "$(BLUE)		|___________________________________________________|$(RESET)"
-		@echo "$(BLUE)		|__________________________________________$(RED)PROJECT!$(RESET)$(BLUE)_|$(RESET)"
+		@echo " $(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)"
+		@echo " $(SPARKS)                                                        $(SPARKS)"
+		@echo "$(PINK) $(SPARKS)    ∞∞∞∞∞  ∞∞∞          ∞                 ∞             $(SPARKS) $(RESET)"
+		@echo "$(PINK) $(SPARKS)   ∞∞   ∞   ∞           ∞       ∞∞∞       ∞     ∞∞∞∞    $(SPARKS) $(RESET)"
+		@echo "$(PINK) $(SPARKS)   ∞    ∞   ∞          ∞∞∞∞∞   ∞   ∞    ∞∞∞∞∞   ∞   ∞   $(SPARKS) $(RESET)"
+		@echo "$(L_VIOLET) $(SPARKS)   ∞        ∞           ∞          ∞      ∞    ∞∞       $(SPARKS) $(RESET)"
+		@echo "$(L_VIOLET) $(SPARKS)   ∞  ∞∞∞   ∞           ∞          ∞      ∞    ∞∞       $(SPARKS) $(RESET)"
+		@echo "$(L_VIOLET) $(SPARKS)   ∞    ∞   ∞           ∞     ∞∞∞∞∞∞∞     ∞     ∞∞∞∞    $(SPARKS) $(RESET)"
+		@echo "$(VIOLET) $(SPARKS)   ∞∞   ∞   ∞           ∞     ∞     ∞     ∞         ∞∞  $(SPARKS) $(RESET)"
+		@echo "$(VIOLET) $(SPARKS)    ∞   ∞   ∞     ∞∞    ∞  ∞  ∞∞    ∞     ∞  ∞      ∞∞  $(SPARKS) $(RESET)"
+		@echo "$(VIOLET) $(SPARKS)     ∞∞∞∞ ∞∞∞∞∞∞  ∞∞    ∞∞∞∞   ∞∞∞∞∞∞∞    ∞∞∞∞  ∞∞∞∞∞   $(SPARKS) $(RESET)"
+		@echo " $(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)"
+		@echo " $(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(SPARKS)$(RESET)$(CYAN)PIPEX PROJECT!$(RESET)$(CYAN)$(SPARKS)$(SPARKS)$(RESET)"
 
 cleanobj:
 	$(RM) -r obj/
@@ -86,10 +99,14 @@ re: fclean all
 valgrind:
 	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --trace-children=yes -s -q ./pipex ...
 
+normlib:
+	@echo "$(CYAN)\nChecking norm for Libft...$(RESET)\n"
+	@norminette $(LIBFT) includes/ && echo "$(EMOJI_HAPPY)$(GREEN)Norm check passed!$(RESET)$(EMOJI_CELEBRATE)" || echo "$(EMOJI_SAD)$(RED)Norm check failed!$(RESET)$(EMOJI_SAD)"
+
 norm:
-	@echo "$(CYAN)\nChecking norm for libft...$(RESET)\n"
-	@norminette -R CheckForbiddenSourceHeader $(LIBFT) includes/
-	@echo "$(CYAN)\nChecking norm for $(NAME)...$(RESET)\n"
-	@norminette -R CheckForbiddenSourceHeader $(SRC) includes/
+	@echo "$(CYAN)\nChecking norm for Pipex...$(RESET)\n"
+	@norminette $(SRC) includes/ && echo "$(EMOJI_HAPPY)$(GREEN)Norm check passed!$(RESET)$(EMOJI_CELEBRATE)" || echo "$(EMOJI_SAD)$(RED)Norm check failed!$(RESET)$(EMOJI_SAD)"
+
+normall: normlib norm
 
 .PHONY: all cleanobj clean fclean re

@@ -6,12 +6,14 @@
 /*   By: tgomes-l <tgomes-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 17:18:15 by tgomes-l          #+#    #+#             */
-/*   Updated: 2023/03/09 17:19:20 by tgomes-l         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:19:08 by tgomes-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
+/*used to replace any ASCII character with a space ' ' 
+character when it is enclosed between two single-quote ' characters*/
 static void	put_spaces(char *args)
 {
 	int	i;
@@ -33,6 +35,8 @@ static void	put_spaces(char *args)
 	}
 }
 
+/*replaces any space ' ' character with the ASCII character with value 1
+ when it is enclosed between two single-quote '*/
 static void	change_spaces(char *args)
 {
 	int	i;
@@ -54,6 +58,8 @@ static void	change_spaces(char *args)
 	}
 }
 
+/*function takes a string as input and returns a new string 
+with all the single-quote ' characters removed.*/
 static char	*remove_quotes(char *args)
 {
 	int		i;
@@ -82,6 +88,9 @@ static char	*remove_quotes(char *args)
 	return (new_str);
 }
 
+/*modifies args to remove the single quotes, replaces spaces with 1 between 
+single quotes, and splits the string into separate arguments 
+using spaces as delimiters. */
 void	parse_args(t_pipex *pipex, char *args)
 {
 	int		x;
