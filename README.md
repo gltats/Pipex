@@ -6,7 +6,7 @@ The intention is to discover in detail a UNIX mechanism, pipes
 
 ## Status:
 - Actual status:  on- going.\
-- Result : [![pipex - 100%✅](https://img.shields.io/badge/pipex-100%25%E2%9C%85-brightgreen.svg?style=for-the-badge&logo=&logoColor=white)](https://github.com/gltats/Pipex)
+- Result : [![pipex - 100%✅](https://img.shields.io/badge/100%25%E2%9C%85-brightgreen.svg?style=for-the-badge&logo=&logoColor=white)](https://github.com/gltats/Pipex)
 
 ## Technical considerations:
 The  program will be executed as follows:</br>
