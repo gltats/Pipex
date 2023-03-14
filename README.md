@@ -59,5 +59,6 @@ The waitpid function takes three arguments: the process ID of the child process 
 
 ##
 ![Generic badge](https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white)
+[![pipex - 100%✅](https://img.shields.io/badge/pipex-100%25%E2%9C%85-brightgreen.svg?style=for-the-badge&logo=&logoColor=white)](https://github.com/gltats/Pipex)
 
 [![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://GitHub.com/Naereen/)
